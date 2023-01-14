@@ -82,7 +82,7 @@ class Comment(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return self.text
+        return self.text[:RETURN_SYMBOLS]
 
 
 class Follow(models.Model):

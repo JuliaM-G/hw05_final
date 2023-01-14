@@ -84,11 +84,23 @@ class FormTests(TestCase):
     def test_edit_post(self):
         """Валидная форма изменяет запись в Post."""
         posts_count = Post.objects.count()
-        form_changed = {'text': 'Измененный пост', }
+        group_2 = Group.objects.create(
+            title='Вторая группа',
+            slug='slug_2',
+            description='Вторая группа'
+        )
+        form_changed = {'text': 'Измененный пост',
+                        'group': group_2.pk}
         response = self.authorized_client.post(
             reverse('posts:post_edit', kwargs={'post_id': self.post.id}),
             data=form_changed,
             follow=True
+        )
+        old_group_response = self.authorized_client.get(
+            reverse('posts:group_list', args=(self.group.slug,))
+        )
+        new_group_response = self.authorized_client.get(
+            reverse('posts:group_list', args=(group_2.slug,))
         )
         self.assertRedirects(response, reverse(
             'posts:post_detail', kwargs={'post_id': self.post.id}
@@ -97,6 +109,14 @@ class FormTests(TestCase):
         post = Post.objects.get(id=self.post.id)
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(post.text, form_changed.get('text'))
+        self.assertEqual(
+            old_group_response.context['page_obj'].paginator.count,
+            0
+        )
+        self.assertEqual(
+            new_group_response.context['page_obj'].paginator.count,
+            1
+        )
 
     def test_comment_create(self):
         """Валидная форма Комментария создает комментарий к посту."""

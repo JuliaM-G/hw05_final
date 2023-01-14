@@ -46,12 +46,10 @@ def profile(request, username):
 def post_detail(request, post_id):
     template_name = 'posts/post_detail.html'
     one_post = get_object_or_404(Post, id=post_id)
-    posts_number = one_post.author.posts.all().count()
     form = CommentForm(request.POST or None)
     comments = one_post.comments.all()
     context = {
         'one_post': one_post,
-        'posts_number': posts_number,
         'form': form,
         'comments': comments,
     }
