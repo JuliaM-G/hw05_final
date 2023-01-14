@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Об авторе проекта{% endblock %}
+{% block content %}
+<h2 align="center">Всем привет!</h2>
+<div class="container py-4">
+    <article>
+        <p><font size="5">Меня зовут Юля и я автор данного проекта.</font></p>
+    </article>
+    <article>
+        <p><font size="5">Да простят меня те, кто увидит этот "шедевр".</font></p>
+    </article>
+    <center>
+        <img src="{% static 'img/Шедевр.jpeg' %}" width="424" height="350" alt="Shedevr">
+    </center>
+    <article>
+        <p><font size="5">Красивого рабочего стола у меня нет, зато есть кружка-свинюшка (ˆ(oo)ˆ)</font></p>
+    </article>
+    <center>
+        <img src="{% static 'img/Свинюшка.jpeg' %}" width="400" height="300" alt="Svinka">
+    </center> 
+    <article>
+        <p><font size="5">Зато я знаю физику... Ну, я могу отличить "массу" и "вес"...</font></p>
+    </article>
+    <center>
+        <img src="{% static 'img/Совушки.jpg' %}" width="500" height="500" alt="Sovushki">
+    </center>
+</div>
+<h2 align="center"> Спасибо за внимание и терпение! (⌒_⌒;)</h2>
+{% endblock %}
